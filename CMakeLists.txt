@@ -3,4 +3,10 @@ project(doma-cli)
 
 set(CMAKE_CXX_STANDARD 14)
 
-add_executable(${PROJECT_NAME} ./src/main.cpp)
+include_directories(include)
+set(SOURCES
+        ./src/main.cpp
+        ./src/app.cpp
+        )
+
+add_executable(${PROJECT_NAME} ${SOURCES})

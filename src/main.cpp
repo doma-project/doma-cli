@@ -1,6 +1,6 @@
-#include <iostream>
+#include "app.hpp"
 
 int main() {
-  std::cout << "Hello, World!" << std::endl;
-  return 0;
+  doma::cli::App app;
+  return app.run();
 }
