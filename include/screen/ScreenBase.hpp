@@ -10,16 +10,16 @@ namespace screen {
 
 class ScreenBase : public IScreen {
  public:
-  void registerAction(const char action,
-                      const RegistredActionCallback &registredActionCallback) override;
+  void registerActionHandler(const char action,
+                             const ActionHandlerType &actionHandler) override;
 
-  bool handleAction(const char action) override;
+  bool tryDoAction(const char action) override;
 
  protected:
   ScreenBase() = default;
 
  protected:
-  std::unordered_map<char, IScreen::RegistredActionCallback> actions_;
+  std::unordered_map<char, IScreen::ActionHandlerType> actionHandlers_;
 };
 
 } // namespace screen

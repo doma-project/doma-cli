@@ -6,18 +6,19 @@ namespace doma {
 namespace cli {
 namespace screen {
 
-void ScreenBase::registerAction(const char action,
-                                const RegistredActionCallback &registredActionCallback) {
-  actions_[action] = registredActionCallback;
+void ScreenBase::registerActionHandler(const char action,
+                                       const ActionHandlerType &actionHandler) {
+  actionHandlers_[action] = actionHandler;
 }
 
-bool ScreenBase::handleAction(const char action) {
-  const auto hasAction = actions_.count(action) > 0;
-  if (!hasAction) {
+bool ScreenBase::tryDoAction(const char action) {
+  const auto hasActionHandler = actionHandlers_.count(action) > 0;
+  if (!hasActionHandler) {
     return false;
   }
 
-  actions_[action]();
+  const auto &actionHandler = actionHandlers_[action];
+  actionHandler();
 
   return true;
 }

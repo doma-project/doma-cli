@@ -15,14 +15,14 @@ int App::run() {
 
   auto needCloseApp = false;
 
-  screen1_1.registerAction('1', [&currentScreen, &emptyScreen]() {
+  screen1_1.registerActionHandler('1', [&currentScreen, &emptyScreen]() {
     currentScreen = &emptyScreen;
   });
-  screen1_1.registerAction('q', [&needCloseApp]() {
+  screen1_1.registerActionHandler('q', [&needCloseApp]() {
     needCloseApp = true;
   });
 
-  emptyScreen.registerAction('q', [&currentScreen, &screen1_1]() {
+  emptyScreen.registerActionHandler('q', [&currentScreen, &screen1_1]() {
     currentScreen = &screen1_1;
   });
 
@@ -30,7 +30,7 @@ int App::run() {
   do {
     currentScreen->printMenu();
     std::cin >> action;
-    currentScreen->handleAction(action);
+    currentScreen->tryDoAction(action);
   } while (!needCloseApp);
 
   return 0;
