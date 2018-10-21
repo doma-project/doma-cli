@@ -11,7 +11,7 @@ void ScreenBase::registerAction(const char action,
   actions_[action] = registredActionCallback;
 }
 
-bool ScreenBase::handleAction(const char action) const {
+bool ScreenBase::handleAction(const char action) {
   const auto hasAction = actions_.count(action) > 0;
   if (!hasAction) {
     return false;

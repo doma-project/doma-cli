@@ -13,13 +13,13 @@ class ScreenBase : public IScreen {
   void registerAction(const char action,
                       const RegistredActionCallback &registredActionCallback) override;
 
-  bool handleAction(const char action) const override;
+  bool handleAction(const char action) override;
 
  protected:
   ScreenBase() = default;
 
  protected:
-  mutable std::unordered_map<char, IScreen::RegistredActionCallback> actions_;
+  std::unordered_map<char, IScreen::RegistredActionCallback> actions_;
 };
 
 } // namespace screen

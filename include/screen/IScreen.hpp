@@ -11,7 +11,7 @@ class IScreen {
  public:
   virtual void registerAction(const char action,
                               const RegistredActionCallback &registredActionCallback) = 0;
-  virtual bool handleAction(const char action) const = 0;
+  virtual bool handleAction(const char action) = 0;
 
   virtual void printMenu() const = 0;
 
