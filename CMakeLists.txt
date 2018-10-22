@@ -8,6 +8,7 @@ set(SOURCES
         ./src/main.cpp
         ./src/app.cpp
         ./src/screen/ScreenBase.cpp
+        ./src/screen/Screen0.cpp
         ./src/screen/Screen1_1.cpp
         ./src/screen/EmptyScreen.cpp
         )
