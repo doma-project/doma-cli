@@ -7,10 +7,10 @@ include_directories(include)
 set(SOURCES
         ./src/main.cpp
         ./src/app.cpp
-        ./src/screen/ScreenBase.cpp
-        ./src/screen/Screen0.cpp
-        ./src/screen/Screen1_1.cpp
-        ./src/screen/EmptyScreen.cpp
+        ./src/cli/screen/ScreenBase.cpp
+        ./src/cli/screen/Screen0.cpp
+        ./src/cli/screen/Screen1_1.cpp
+        ./src/cli/screen/EmptyScreen.cpp
         )
 
 add_executable(${PROJECT_NAME} ${SOURCES})

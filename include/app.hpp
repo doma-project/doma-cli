@@ -1,6 +1,6 @@
-#include "screen/Screen0.hpp"
-#include "screen/Screen1_1.hpp"
-#include "screen/EmptyScreen.hpp"
+#include "cli/screen/Screen0.hpp"
+#include "cli/screen/Screen1_1.hpp"
+#include "cli/screen/EmptyScreen.hpp"
 
 namespace doma {
 namespace cli {

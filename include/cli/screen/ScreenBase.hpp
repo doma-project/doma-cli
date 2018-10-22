@@ -1,6 +1,6 @@
 #pragma once
 
-#include "screen/IScreen.hpp"
+#include "cli/screen/IScreen.hpp"
 
 #include <unordered_map>
 
