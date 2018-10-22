@@ -1,14 +1,14 @@
 #pragma once
 
-#include "screen/ScreenBase.hpp"
+#include "cli/screen/ScreenBase.hpp"
 
 namespace doma {
 namespace cli {
 namespace screen {
 
-class Screen1_1 : public ScreenBase {
+class EmptyScreen : public ScreenBase {
  public:
-  Screen1_1() = default;
+  EmptyScreen() = default;
 
   void printMenu() const override;
 };

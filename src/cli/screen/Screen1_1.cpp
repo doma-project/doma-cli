@@ -1,4 +1,4 @@
-#include "screen/EmptyScreen.hpp"
+#include "cli/screen/Screen1_1.hpp"
 
 #include <iostream>
 
@@ -6,7 +6,8 @@ namespace doma {
 namespace cli {
 namespace screen {
 
-void EmptyScreen::printMenu() const {
+void Screen1_1::printMenu() const {
+  std::cout << "1. Create a list" << std::endl;
   std::cout << "Q. Quit" << std::endl;
 }
 
