@@ -1,3 +1,4 @@
+#include "screen/Screen0.hpp"
 #include "screen/Screen1_1.hpp"
 #include "screen/EmptyScreen.hpp"
 
@@ -13,10 +14,13 @@ class App final {
  private:
   bool needCloseApp_;
 
+  screen::Screen0 screen0_;
   screen::Screen1_1 screen1_1_;
   screen::EmptyScreen emptyScreen_;
 
   screen::IScreen *currentScreen_;
+  
+  void save();
 };
 
 } // namespace cli
