@@ -11,6 +11,9 @@ set(SOURCES
         ./src/cli/screen/Screen0.cpp
         ./src/cli/screen/Screen1_1.cpp
         ./src/cli/screen/EmptyScreen.cpp
+        ./src/model/Tag.cpp
+        ./src/model/Note.cpp
+        ./src/model/Notebook.cpp
         )
 
 add_executable(${PROJECT_NAME} ${SOURCES})
