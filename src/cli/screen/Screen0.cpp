@@ -7,7 +7,7 @@ namespace cli {
 namespace screen {
 
 void Screen0::printMenu() const {
-  std::cout << "Would you like save your work?" << std::endl;
+  std::cout << "Would you like to save your work?" << std::endl;
   std::cout << "Y. Yes" << std::endl;
   std::cout << "N. No" << std::endl;
 }
