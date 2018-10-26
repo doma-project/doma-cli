@@ -1,10 +1,11 @@
+#include "model/Notebook.hpp"
+
 #include <map>
 #include <set>
 #include <string>
 
 #include "model/Note.hpp"
 #include "model/NoteId.hpp"
-#include "model/Notebook.hpp"
 #include "model/NotebookId.hpp"
 #include "model/Tag.hpp"
 #include "model/TagId.hpp"

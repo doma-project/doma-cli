@@ -1,6 +1,7 @@
+#include "model/Tag.hpp"
+
 #include <string>
 
-#include "model/Tag.hpp"
 #include "model/TagId.hpp"
 
 namespace doma {

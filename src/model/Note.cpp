@@ -1,7 +1,8 @@
+#include "model/Note.hpp"
+
 #include <set>
 #include <string>
 
-#include "model/Note.hpp"
 #include "model/ModelClock.hpp"
 #include "model/NoteId.hpp"
 #include "model/TagId.hpp"
