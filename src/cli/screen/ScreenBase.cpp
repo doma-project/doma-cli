@@ -1,14 +1,20 @@
 #include "cli/screen/ScreenBase.hpp"
 
 #include <iostream>
+#include <cli/screen/ScreenBase.hpp>
 
 namespace doma {
 namespace cli {
 namespace screen {
 
-void ScreenBase::registerActionHandler(const char action,
+void ScreenBase::registerActionHandler(const Action action,
                                        const ActionHandlerType &actionHandler) {
   actionHandlers_[action] = actionHandler;
+}
+
+void ScreenBase::resetActionHandlers() {
+  // Delete all action handlers except quit handler
+  resetActionHandlersExcept({Actions::kQuit});
 }
 
 bool ScreenBase::tryDoAction(const char action) {
@@ -21,6 +27,20 @@ bool ScreenBase::tryDoAction(const char action) {
   actionHandler();
 
   return true;
+}
+
+void ScreenBase::resetActionHandlersExcept(const std::set<char> &exceptActions) {
+  auto actionHandlersIt = actionHandlers_.begin();
+  while (actionHandlersIt != actionHandlers_.end()) {
+    const auto& action = actionHandlersIt->first;
+    const auto skipActionHandlerRemoval = exceptActions.count(action) > 0;
+
+    if (skipActionHandlerRemoval) {
+      ++actionHandlersIt;
+    } else {
+      actionHandlers_.erase(actionHandlersIt++);
+    }
+  }
 }
 
 } // namespace screen

@@ -10,6 +10,7 @@ class Screen0 : public ScreenBase {
  public:
   Screen0() = default;
 
+  void resetActionHandlers() override;
   void printMenu() const override;
 };
 
