@@ -36,5 +36,7 @@ class Notebook {
   Timestamp dateChange_;
 };
 
+using Notebooks = std::map<model::NotebookId, model::Notebook>;
+
 }  // namespace model
 }  // namespace doma
