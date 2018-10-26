@@ -1,10 +1,21 @@
+#include <set>
+#include <string>
+
 #include "model/Note.hpp"
+#include "model/ModelClock.hpp"
+#include "model/NoteId.hpp"
+#include "model/TagId.hpp"
+#include "model/Timestamp.hpp"
 
 namespace doma {
 namespace model {
 
-Note::Note(const NoteId &id, const std::string &name, const std::string &text)
-    : isDone_(false), id_(id), name_(name), text_(text), dateCreate_(ModelClock::now()) {}
+Note::Note(const NoteId id, const std::string &name, const std::string &text)
+    : id_(id), isDone_(false), name_(name), text_(text), dateCreate_(ModelClock::now()) {}
+
+bool Note::isDone() const {
+  return isDone_;
+}
 
 NoteId Note::getId() const {
   return id_;
@@ -30,12 +41,8 @@ std::string &Note::getText() {
   return text_;
 }
 
-std::vector<TagId> &Note::getTagIds() {
+std::set<TagId> &Note::getTagIds() {
   return tagIds_;
-}
-
-bool Note::isDone() const {
-  return isDone_;
 }
 
 void Note::changeName(const std::string &name) {
@@ -48,20 +55,22 @@ void Note::changeText(const std::string &text) {
   dateChange_ = ModelClock::now();
 }
 
-void Note::addTag(const TagId &tagId) {
-  tagIds_.push_back(tagId);
+bool Note::addTag(const TagId tagId) {
+  if (tagIds_.count(tagId)) {
+    return false;
+  }
+  tagIds_.emplace(tagId);
   dateChange_ = ModelClock::now();
+  return true;
 }
 
-bool Note::removeTag(const TagId &tagId) {
-  for (auto i = 0u; i < tagIds_.size(); i++) {
-    if (tagId == tagIds_[i]) {
-      tagIds_.erase(tagIds_.begin() + i);
-      dateChange_ = ModelClock::now();
-      return true;
-    }
+bool Note::removeTag(const TagId tagId) {
+  if (!tagIds_.count(tagId)) {
+    return false;
   }
-  return false;
+  tagIds_.erase(tagId);
+  dateChange_ = ModelClock::now();
+  return true;
 }
 
 void Note::done() {

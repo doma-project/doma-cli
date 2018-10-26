@@ -1,44 +1,37 @@
 #pragma once
 
-#include "Note.hpp"
-#include "Tag.hpp"
+#include <map>
+#include <set>
+#include <string>
 
-#include <chrono>
-#include <iostream>
-#include <vector>
+#include "model/Note.hpp"
+#include "model/NoteId.hpp"
+#include "model/NotebookId.hpp"
+#include "model/Tag.hpp"
+#include "model/TagId.hpp"
 
 namespace doma {
 namespace model {
 
-using NotebookId = uint32_t;
-
 class Notebook {
  public:
-  Notebook(const NotebookId &id, const std::string &name);
+  Notebook(const NotebookId id, const std::string &name);
 
   NotebookId getId() const;
-
   std::string &getName();
-
-  std::vector<Note> &getNotes();
-
-  std::vector<Tag> &getTags();
+  std::map<NoteId, Note> &getNotes();
+  std::map<TagId, Tag> &getTags();
 
   void changeName(const std::string &name);
-
-  void createNote(const std::string &note_name, const std::string &note_text);
-
-  void createTag(const std::string &tag_name);
-
-  void addTagToNote(const NoteId &note_id, const TagId &tag_id);
-
-  bool removeTagFromNote(const NoteId &note_id, const TagId &tag_id);
+  void createNote(const NoteId noteId, const std::string &noteName,
+                  const std::string &noteText);
+  void createTag(const TagId tagId, const std::string &tagName);
 
  private:
   NotebookId id_;
   std::string name_;
-  std::vector<Note> notes_;
-  std::vector<Tag> tags_;
+  std::map<NoteId, Note> notes_;
+  std::map<TagId, Tag> tags_;
   Timestamp dateCreate_;
   Timestamp dateChange_;
 };

@@ -1,9 +1,18 @@
+#include <map>
+#include <set>
+#include <string>
+
+#include "model/Note.hpp"
+#include "model/NoteId.hpp"
 #include "model/Notebook.hpp"
+#include "model/NotebookId.hpp"
+#include "model/Tag.hpp"
+#include "model/TagId.hpp"
 
 namespace doma {
 namespace model {
 
-Notebook::Notebook(const NotebookId &id, const std::string &name)
+Notebook::Notebook(const NotebookId id, const std::string &name)
     : id_(id), name_(name), dateCreate_(ModelClock::now()) {}
 
 NotebookId Notebook::getId() const {
@@ -14,11 +23,11 @@ std::string &Notebook::getName() {
   return name_;
 }
 
-std::vector<Note> &Notebook::getNotes() {
+std::map<NoteId, Note> &Notebook::getNotes() {
   return notes_;
 }
 
-std::vector<Tag> &Notebook::getTags() {
+std::map<TagId, Tag> &Notebook::getTags() {
   return tags_;
 }
 
@@ -27,25 +36,15 @@ void Notebook::changeName(const std::string &name) {
   dateChange_ = ModelClock::now();
 }
 
-void Notebook::createNote(const std::string &note_name,
-                          const std::string &note_text) {
-  notes_.emplace_back(note_name, note_text);
+void Notebook::createNote(const NoteId noteId, const std::string &noteName,
+                          const std::string &noteText) {
+  notes_.emplace(noteId, Note(noteId, noteName, noteText));
   dateChange_ = ModelClock::now();
 }
 
-void Notebook::createTag(const std::string &tag_name) {
-  tags_.emplace_back(tag_name);
+void Notebook::createTag(const TagId tagId, const std::string &tagName) {
+  tags_.emplace(tagId, Tag(tagId, tagName));
   dateChange_ = ModelClock::now();
-}
-
-void Notebook::addTagToNote(const NoteId &note_id, const TagId &tag_id) {
-  notes_[note_id].addTag(tag_id);
-  dateChange_ = ModelClock::now();
-}
-
-bool Notebook::removeTagFromNote(const NoteId &note_id, const TagId &tag_id) {
-  dateChange_ = ModelClock::now();
-  return notes_[note_id].removeTag(tag_id);
 }
 
 }  // namespace model

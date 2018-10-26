@@ -1,9 +1,12 @@
+#include <string>
+
 #include "model/Tag.hpp"
+#include "model/TagId.hpp"
 
 namespace doma {
 namespace model {
 
-Tag::Tag(const TagId &id, const std::string &name) : id_(id), name_(name) {}
+Tag::Tag(const TagId id, const std::string &name) : id_(id), name_(name) {}
 
 TagId Tag::getId() const {
   return id_;
