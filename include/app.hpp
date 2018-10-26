@@ -1,3 +1,5 @@
+#pragma once
+
 #include "cli/screen/Screen0.hpp"
 #include "cli/screen/Screen1_1.hpp"
 #include "cli/screen/EmptyScreen.hpp"
@@ -19,7 +21,9 @@ class App final {
   screen::EmptyScreen emptyScreen_;
 
   screen::IScreen *currentScreen_;
-  
+
+ private:
+  void registerActionHandlersForScreens();
   void save();
 };
 
