@@ -18,9 +18,9 @@ class Notebook {
   Notebook(const NotebookId id, const std::string &name);
 
   NotebookId getId() const;
-  std::string &getName();
-  std::map<NoteId, Note> &getNotes();
-  std::map<TagId, Tag> &getTags();
+  const std::string &getName() const;
+  const std::map<NoteId, Note> &getNotes() const;
+  const std::map<TagId, Tag> &getTags() const;
 
   void changeName(const std::string &name);
   void createNote(const NoteId noteId, const std::string &noteName,

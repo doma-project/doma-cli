@@ -20,15 +20,15 @@ NotebookId Notebook::getId() const {
   return id_;
 }
 
-std::string &Notebook::getName() {
+const std::string &Notebook::getName() const {
   return name_;
 }
 
-std::map<NoteId, Note> &Notebook::getNotes() {
+const std::map<NoteId, Note> &Notebook::getNotes() const {
   return notes_;
 }
 
-std::map<TagId, Tag> &Notebook::getTags() {
+const std::map<TagId, Tag> &Notebook::getTags() const {
   return tags_;
 }
 
