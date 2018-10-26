@@ -26,8 +26,8 @@ class Note {
 
   void changeName(const std::string &name);
   void changeText(const std::string &name);
-  bool addTag(const TagId tagId);
-  bool removeTag(const TagId tagId);
+  bool tryAddTag(const TagId tagId);
+  bool tryRemoveTag(const TagId tagId);
   void done();
 
  private:

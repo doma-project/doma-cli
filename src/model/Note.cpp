@@ -56,7 +56,7 @@ void Note::changeText(const std::string &text) {
   dateChange_ = ModelClock::now();
 }
 
-bool Note::addTag(const TagId tagId) {
+bool Note::tryAddTag(const TagId tagId) {
   if (tagIds_.count(tagId)) {
     return false;
   }
@@ -65,7 +65,7 @@ bool Note::addTag(const TagId tagId) {
   return true;
 }
 
-bool Note::removeTag(const TagId tagId) {
+bool Note::tryRemoveTag(const TagId tagId) {
   if (!tagIds_.count(tagId)) {
     return false;
   }
