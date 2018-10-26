@@ -10,6 +10,7 @@ set(SOURCES
         ./src/cli/screen/ScreenBase.cpp
         ./src/cli/screen/Screen0.cpp
         ./src/cli/screen/Screen1_1.cpp
+        ./src/cli/screen/Screen1_2.cpp
         ./src/cli/screen/EmptyScreen.cpp
         ./src/model/Tag.cpp
         ./src/model/Note.cpp
