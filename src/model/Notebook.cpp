@@ -14,7 +14,7 @@ namespace doma {
 namespace model {
 
 Notebook::Notebook(const NotebookId id, const std::string &name)
-    : id_(id), name_(name), dateCreate_(ModelClock::now()) {}
+    : id_(id), name_(name), notes_(), tags_(), dateCreate_(ModelClock::now()), dateChange_() {}
 
 NotebookId Notebook::getId() const {
   return id_;

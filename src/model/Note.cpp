@@ -12,7 +12,14 @@ namespace doma {
 namespace model {
 
 Note::Note(const NoteId id, const std::string &name, const std::string &text)
-    : id_(id), isDone_(false), name_(name), text_(text), dateCreate_(ModelClock::now()) {}
+    : isDone_(false),
+      id_(id),
+      name_(name),
+      text_(text),
+      tagIds_(),
+      dateCreate_(ModelClock::now()),
+      dateChange_(),
+      dateDone_() {}
 
 bool Note::isDone() const {
   return isDone_;
