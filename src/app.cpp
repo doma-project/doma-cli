@@ -10,11 +10,13 @@ namespace cli {
 App::App(model::Notebooks& notebooks)
     : needCloseApp_(false),
       notebooks_(notebooks),
+      emptyNotebook_(0, "Empty notebook"),
       emptyScreen_(),
       screen0_(),
       screen1_1_(),
       screen1_2_(notebooks_),
       screen2_1_(),
+      screen3_2_(emptyNotebook_),
       currentScreen_(&getScreen1()) {
   registerActionHandlersForScreens();
 }
@@ -45,11 +47,12 @@ void App::registerActionHandlersForScreens() {
   registerActionHandlersForScreen1_1_();
   registerActionHandlersForScreen1_2_();
   registerActionHandlersForScreen2_1_();
+  registerActionHandlersForScreen3_2_();
 }
 
 void App::registerActionHandlersForEmptyScreen_() {
   emptyScreen_.registerActionHandler(Actions::kQuit, [this]() {
-    setCurrentScreen(getScreen1());
+    setCurrentScreen(screen3_2_);
   });
 }
 
@@ -75,14 +78,17 @@ void App::registerActionHandlersForScreen1_1_() {
 }
 
 void App::registerActionHandlersForScreen1_2_() {
-  const Action notebookStartIndex = '1';
-  for (auto i = 0u; i < notebooks_.size(); ++i) {
-    // TODO: if notebooks_.size() > 9 then we have a problem: after '9' follow ':', ';' chars
-    const Action action = notebookStartIndex + i;
+  Action notebookIndex = '1';
+  for (auto &item : notebooks_) {
+    auto &notebook = item.second;
 
-    screen1_2_.registerActionHandler(action, [this]() {
-      setCurrentScreen(emptyScreen_);
+    screen1_2_.registerActionHandler(notebookIndex, [this, &notebook]() {
+      screen3_2_.setNotebook(notebook);
+      setCurrentScreen(screen3_2_);
     });
+
+    // TODO: if notebooks_.size() > 9 then we have a problem: after '9' follow ':', ';' chars
+    ++notebookIndex;
   }
 
   screen1_2_.registerActionHandler(Actions::kQuit, [this]() {
@@ -105,15 +111,36 @@ void App::registerActionHandlersForScreen2_1_() {
     }
 
     model::Notebook newNotebook(getNextNotebookId(), screen2_1_.getName());
+    // TODO temporarily, to remove when #11 will be fixed -->
+    newNotebook.createNote(1, screen2_1_.getName() + "'s 1st note", "1st note text");
+    newNotebook.createNote(2, screen2_1_.getName() + "'s 2nd note", "2nd note text");
+    newNotebook.createNote(3, screen2_1_.getName() + "'s 3rd note", "3rd note text");
+    // <--
+
     notebooks_.emplace(std::make_pair(newNotebook.getId(), newNotebook));
 
     screen2_1_.resetName();
-    // TODO temporarily, to replace emptyScreen_ with screen3_1_ when #10 will be fixed
     setCurrentScreen(getScreen1());
   });
 
   screen2_1_.registerActionHandler(Actions::kCancel, [this]() {
     screen2_1_.resetName();
+    setCurrentScreen(getScreen1());
+  });
+}
+
+void App::registerActionHandlersForScreen3_2_() {
+  const Action noteStartIndex = '1';
+  for (auto i = 0u; i < screen3_2_.getNotebook().getNotes().size(); ++i) {
+    // TODO: if notebooks_.size() > 9 then we have a problem: after '9' follow ':', ';' chars
+    const Action action = noteStartIndex + i;
+
+    screen3_2_.registerActionHandler(action, [this]() {
+      setCurrentScreen(emptyScreen_);
+    });
+  }
+
+  screen3_2_.registerActionHandler(Actions::kQuit, [this]() {
     setCurrentScreen(getScreen1());
   });
 }
