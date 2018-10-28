@@ -17,6 +17,9 @@ class App final {
  public:
   explicit App(model::Notebooks& notebooks);
 
+  App(const App&) = delete;
+  App& operator=(const App&) = delete;
+
   void setCurrentScreen(screen::IScreen& screen);
 
   int run();
@@ -31,7 +34,7 @@ class App final {
   screen::Screen1_1 screen1_1_;
   screen::Screen1_2 screen1_2_;
 
-  screen::IScreen &currentScreen_;
+  screen::IScreen *currentScreen_;
 
  private:
   void registerActionHandlersForScreens();

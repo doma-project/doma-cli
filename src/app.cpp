@@ -15,25 +15,25 @@ App::App(model::Notebooks& notebooks)
       screen1_1_(),
       // TODO temporarily, to replace emptyScreen_ with screen2_1_ when #5 will be fixed
       screen1_2_(notebooks_, emptyScreen_),
-      currentScreen_(getScreen1()) {
+      currentScreen_(&getScreen1()) {
   registerActionHandlersForScreens();
 }
 
 void App::setCurrentScreen(screen::IScreen &screen) {
-  currentScreen_ = screen;
+  currentScreen_ = &screen;
 }
 
 int App::run() {
   Action action;
   do {
-    currentScreen_.resetActionHandlers();
+    currentScreen_->resetActionHandlers();
 
     // TODO optimize: we need to re-register again only for current screen, not for all
     registerActionHandlersForScreens();
 
-    currentScreen_.printMenu();
+    currentScreen_->printMenu();
     std::cin >> action;
-    currentScreen_.tryDoAction(action);
+    currentScreen_->tryDoAction(action);
   } while (!needCloseApp_);
 
   return 0;
