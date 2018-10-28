@@ -3,6 +3,7 @@
 #include "cli/screen/Screen0.hpp"
 #include "cli/screen/Screen1_1.hpp"
 #include "cli/screen/Screen1_2.hpp"
+#include "cli/screen/Screen2_1.hpp"
 #include "cli/screen/EmptyScreen.hpp"
 #include "model/Notebook.hpp"
 
@@ -33,6 +34,7 @@ class App final {
   screen::Screen0 screen0_;
   screen::Screen1_1 screen1_1_;
   screen::Screen1_2 screen1_2_;
+  screen::Screen2_1 screen2_1_;
 
   screen::IScreen *currentScreen_;
 
@@ -43,11 +45,13 @@ class App final {
   void registerActionHandlersForScreen0_();
   void registerActionHandlersForScreen1_1_();
   void registerActionHandlersForScreen1_2_();
+  void registerActionHandlersForScreen2_1_();
 
   // TODO: what about more clear names?
   screen::IScreen &getScreen1();
 
   bool hasNotebooks() const;
+  model::NotebookId getNextNotebookId() const;
 
   void save();
 };

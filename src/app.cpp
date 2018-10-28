@@ -15,6 +15,7 @@ App::App(model::Notebooks& notebooks)
       screen1_1_(),
       // TODO temporarily, to replace emptyScreen_ with screen2_1_ when #5 will be fixed
       screen1_2_(notebooks_, emptyScreen_),
+      screen2_1_(),
       currentScreen_(&getScreen1()) {
   registerActionHandlersForScreens();
 }
@@ -44,6 +45,7 @@ void App::registerActionHandlersForScreens() {
   registerActionHandlersForScreen0_();
   registerActionHandlersForScreen1_1_();
   registerActionHandlersForScreen1_2_();
+  registerActionHandlersForScreen2_1_();
 }
 
 void App::registerActionHandlersForEmptyScreen_() {
@@ -57,6 +59,7 @@ void App::registerActionHandlersForScreen0_() {
     save();
     needCloseApp_ = true;
   });
+
   screen0_.registerActionHandler(Actions::kNo, [this]() {
     needCloseApp_ = true;
   });
@@ -64,8 +67,9 @@ void App::registerActionHandlersForScreen0_() {
 
 void App::registerActionHandlersForScreen1_1_() {
   screen1_1_.registerActionHandler('1', [this]() {
-    setCurrentScreen(emptyScreen_);
+    setCurrentScreen(screen2_1_);
   });
+
   screen1_1_.registerActionHandler(Actions::kQuit, [this]() {
     setCurrentScreen(screen0_);
   });
@@ -87,6 +91,34 @@ void App::registerActionHandlersForScreen1_2_() {
   });
 }
 
+void App::registerActionHandlersForScreen2_1_() {
+  screen2_1_.registerActionHandler('1', [this]() {
+    std::cout << "Name:" << std::endl;
+    std::string name;
+    std::cin >> name;
+
+    screen2_1_.setName(std::move(name));
+  });
+
+  screen2_1_.registerActionHandler(Actions::kOk, [this]() {
+    if (screen2_1_.getName().empty()) {
+      return;
+    }
+
+    model::Notebook newNotebook(getNextNotebookId(), screen2_1_.getName());
+    notebooks_.emplace(std::make_pair(newNotebook.getId(), newNotebook));
+
+    screen2_1_.resetName();
+    // TODO temporarily, to replace emptyScreen_ with screen3_1_ when #10 will be fixed
+    setCurrentScreen(getScreen1());
+  });
+
+  screen2_1_.registerActionHandler(Actions::kCancel, [this]() {
+    screen2_1_.resetName();
+    setCurrentScreen(getScreen1());
+  });
+}
+
 screen::IScreen &App::getScreen1() {
   if (hasNotebooks()) {
     return screen1_2_;
@@ -97,6 +129,15 @@ screen::IScreen &App::getScreen1() {
 
 bool App::hasNotebooks() const {
   return !notebooks_.empty();
+}
+
+model::NotebookId App::getNextNotebookId() const {
+  if (notebooks_.empty()) {
+    return 1;
+  }
+
+  const auto lastNotebookId = notebooks_.rbegin()->first;
+  return lastNotebookId + 1;
 }
 
 void App::save() {
