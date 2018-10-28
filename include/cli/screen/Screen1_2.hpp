@@ -9,14 +9,12 @@ namespace screen {
 
 class Screen1_2 : public ScreenBase {
  public:
-  Screen1_2(const model::Notebooks &notebooks, const IScreen& showNotebookScreen);
+  explicit Screen1_2(const model::Notebooks &notebooks);
 
   void printMenu() const override;
 
  private:
   const model::Notebooks &notebooks_;
-
-  const IScreen& showNotebookScreen_;
 };
 
 } // namespace screen

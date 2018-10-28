@@ -13,8 +13,7 @@ App::App(model::Notebooks& notebooks)
       emptyScreen_(),
       screen0_(),
       screen1_1_(),
-      // TODO temporarily, to replace emptyScreen_ with screen2_1_ when #5 will be fixed
-      screen1_2_(notebooks_, emptyScreen_),
+      screen1_2_(notebooks_),
       screen2_1_(),
       currentScreen_(&getScreen1()) {
   registerActionHandlersForScreens();

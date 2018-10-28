@@ -8,8 +8,8 @@ namespace doma {
 namespace cli {
 namespace screen {
 
-Screen1_2::Screen1_2(const model::Notebooks &notebooks, const IScreen &showNotebookScreen)
-    : ScreenBase(), notebooks_(notebooks), showNotebookScreen_(showNotebookScreen) {
+Screen1_2::Screen1_2(const model::Notebooks &notebooks)
+    : ScreenBase(), notebooks_(notebooks) {
 }
 
 void Screen1_2::printMenu() const {
