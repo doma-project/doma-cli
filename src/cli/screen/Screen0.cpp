@@ -2,6 +2,8 @@
 
 #include <iostream>
 
+#include "cli/screen/ActionHelper.hpp"
+
 namespace doma {
 namespace cli {
 namespace screen {
@@ -12,8 +14,8 @@ void Screen0::resetActionHandlers() {
 
 void Screen0::printMenu() const {
   std::cout << "Would you like to save your work?" << std::endl;
-  std::cout << "Y. Yes" << std::endl;
-  std::cout << "N. No" << std::endl;
+  std::cout << ActionHelper::GetActionString(Actions::kYes) << std::endl;
+  std::cout << ActionHelper::GetActionString(Actions::kNo) << std::endl;
 }
 
 } // namespace screen
