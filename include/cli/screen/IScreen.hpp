@@ -1,3 +1,5 @@
+#pragma once
+
 #include <functional>
 
 #include "cli/screen/Action.hpp"
