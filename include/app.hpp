@@ -31,7 +31,7 @@ class App final {
   screen::Screen1_1 screen1_1_;
   screen::Screen1_2 screen1_2_;
 
-  screen::IScreen *currentScreen_;
+  screen::IScreen &currentScreen_;
 
  private:
   void registerActionHandlersForScreens();
@@ -40,6 +40,9 @@ class App final {
   void registerActionHandlersForScreen0_();
   void registerActionHandlersForScreen1_1_();
   void registerActionHandlersForScreen1_2_();
+
+  // TODO: what about more clear names?
+  screen::IScreen &getScreen1();
 
   bool hasNotebooks() const;
 

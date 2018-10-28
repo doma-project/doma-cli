@@ -15,31 +15,25 @@ App::App(model::Notebooks& notebooks)
       screen1_1_(),
       // TODO temporarily, to replace emptyScreen_ with screen2_1_ when #5 will be fixed
       screen1_2_(notebooks_, emptyScreen_),
-      currentScreen_() {
-  if (hasNotebooks()) {
-    currentScreen_ = &screen1_2_;
-  } else {
-    currentScreen_ = &screen1_1_;
-  }
-
+      currentScreen_(getScreen1()) {
   registerActionHandlersForScreens();
 }
 
 void App::setCurrentScreen(screen::IScreen &screen) {
-  currentScreen_ = &screen;
+  currentScreen_ = screen;
 }
 
 int App::run() {
   Action action;
   do {
-    currentScreen_->resetActionHandlers();
+    currentScreen_.resetActionHandlers();
 
     // TODO optimize: we need to re-register again only for current screen, not for all
     registerActionHandlersForScreens();
 
-    currentScreen_->printMenu();
+    currentScreen_.printMenu();
     std::cin >> action;
-    currentScreen_->tryDoAction(action);
+    currentScreen_.tryDoAction(action);
   } while (!needCloseApp_);
 
   return 0;
@@ -54,13 +48,10 @@ void App::registerActionHandlersForScreens() {
 
 void App::registerActionHandlersForEmptyScreen_() {
   emptyScreen_.registerActionHandler(Actions::kQuit, [this]() {
-    if (hasNotebooks()) {
-      currentScreen_ = &screen1_2_;
-    } else {
-      currentScreen_ = &screen1_1_;
-    }
+    setCurrentScreen(getScreen1());
   });
 }
+
 void App::registerActionHandlersForScreen0_() {
   screen0_.registerActionHandler(Actions::kYes, [this]() {
     save();
@@ -81,17 +72,27 @@ void App::registerActionHandlersForScreen1_1_() {
 }
 
 void App::registerActionHandlersForScreen1_2_() {
-  Action notebookIndex = '1';
-  for (const auto& item : notebooks_) {
-    screen1_2_.registerActionHandler(notebookIndex, [this]() {
+  const Action notebookStartIndex = '1';
+  for (auto i = 0u; i < notebooks_.size(); ++i) {
+    // TODO: if notebooks_.size() > 9 then we have a problem: after '9' follow ':', ';' chars
+    const Action action = notebookStartIndex + i;
+
+    screen1_2_.registerActionHandler(action, [this]() {
       setCurrentScreen(emptyScreen_);
     });
-    ++notebookIndex;
   }
 
   screen1_2_.registerActionHandler(Actions::kQuit, [this]() {
     setCurrentScreen(screen0_);
   });
+}
+
+screen::IScreen &App::getScreen1() {
+  if (hasNotebooks()) {
+    return screen1_2_;
+  } else {
+    return screen1_1_;
+  }
 }
 
 bool App::hasNotebooks() const {
