@@ -7,6 +7,8 @@ namespace doma {
 namespace cli {
 namespace screen {
 
+ScreenBase::ScreenBase() : actionHandlers_() {}
+
 void ScreenBase::registerActionHandler(const Action action,
                                        const ActionHandlerType &actionHandler) {
   actionHandlers_[action] = actionHandler;

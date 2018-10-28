@@ -17,7 +17,7 @@ class ScreenBase : public IScreen {
   bool tryDoAction(const Action action) override;
 
  protected:
-  ScreenBase() = default;
+  ScreenBase();
 
  protected:
   using ActionHandlers = std::unordered_map<Action, IScreen::ActionHandlerType>;
