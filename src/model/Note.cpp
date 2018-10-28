@@ -29,27 +29,27 @@ NoteId Note::getId() const {
   return id_;
 }
 
-Timestamp Note::getDateCreate() const {
+const Timestamp Note::getDateCreate() const {
   return dateCreate_;
 }
 
-Timestamp Note::getDateChange() const {
+const Timestamp Note::getDateChange() const {
   return dateChange_;
 }
 
-Timestamp Note::getDateDone() const {
+const Timestamp Note::getDateDone() const {
   return dateDone_;
 }
 
-std::string &Note::getName() {
+const std::string &Note::getName() const {
   return name_;
 }
 
-std::string &Note::getText() {
+const std::string &Note::getText() const {
   return text_;
 }
 
-std::set<TagId> &Note::getTagIds() {
+const std::set<TagId> &Note::getTagIds() const {
   return tagIds_;
 }
 

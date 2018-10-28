@@ -17,12 +17,12 @@ class Note {
 
   bool isDone() const;
   NoteId getId() const;
-  Timestamp getDateCreate() const;
-  Timestamp getDateChange() const;
-  Timestamp getDateDone() const;
-  std::string &getName();
-  std::string &getText();
-  std::set<TagId> &getTagIds();
+  const Timestamp getDateCreate() const;
+  const Timestamp getDateChange() const;
+  const Timestamp getDateDone() const;
+  const std::string &getName() const;
+  const std::string &getText() const;
+  const std::set<TagId> &getTagIds() const;
 
   void changeName(const std::string &name);
   void changeText(const std::string &name);
