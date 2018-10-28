@@ -12,6 +12,7 @@ Screen1_2::Screen1_2(const model::Notebooks &notebooks, const IScreen &showNoteb
 
 void Screen1_2::printMenu() const {
   // TODO: add assert for notebooks should not be empty (size == 0)
+  // TODO: if notebooks_.size() > 9 then we have a problem: after '9' follow ':', ';' chars
 
   Action notebookIndex = '1';
   for (const auto& item : notebooks_) {
