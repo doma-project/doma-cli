@@ -12,6 +12,10 @@ std::string ActionHelper::GetActionString(const Actions action) {
       return "Y. Yes";
     case kNo:
       return "N. No";
+    case kOk:
+      return "O. Ok";
+    case kCancel:
+      return "C. Cancel";
   }
 
   // TODO assert

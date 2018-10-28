@@ -9,7 +9,9 @@ using Action = char;
 enum Actions : Action {
   kQuit = 'q',
   kYes = 'y',
-  kNo = 'n'
+  kNo = 'n',
+  kOk = 'o',
+  kCancel = 'c'
 };
 
 }  // namespace screen
