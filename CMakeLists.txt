@@ -10,6 +10,7 @@ add_compile_options(
         "-Wunused"
         "-Wpedantic"
         "-Weffc++"
+        "-Werror"
 )
 
 include_directories(include)
