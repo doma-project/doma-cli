@@ -21,6 +21,8 @@ class IScreen {
 
   virtual void printMenu() const = 0;
 
+  virtual ~IScreen() = default;
+
  protected:
   IScreen() = default;
 };
